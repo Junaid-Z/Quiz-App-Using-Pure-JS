@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Quiz App</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="timer.css">
+</head>
+
+<body>
+    <div class="container">
+        <div id="questionHolder">
+            <div id="questionCard">
+                <h1>Computer Quiz</h1>
+                <div id="question">The first mechanical computer designed by Charles Babbage was called ?</div>
+                <div id="answers">
+                    <label>
+                        <input type="radio" name="answer">
+                        Abacus
+                    </label>
+                    <label>
+                        <input type="radio" name="answer">
+                        Analytcal Engine
+                    </label>
+                    <label>
+                        <input type="radio" name="answer">
+                        Calculator
+                    </label>
+                    <label>
+                        <input type="radio" name="answer">
+                        Processor
+                    </label>
+                </div>
+                <div id="options">
+                    <button type="submit">Next Question</button>
+                </div>
+                <!-- <div id="result">
+                    <h1>You received 10/50 marks</h1>
+                </div> -->
+            </div>
+        </div>
+        <div id="display">
+            <div class="time">00</div>
+            <div class="time">00</div>
+            <div class="time">00</div>
+            <div class="title">Hours</div>
+            <div class="title">Minutes</div>
+            <div class="title">Seconds</div>
+        </div>
+    </div>
+    <script src="timer.js"></script>
+    <script src="app.js"></script>
+</body>
+
+</html>
