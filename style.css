@@ -70,7 +70,7 @@
 
 #options {
     display: flex;
-    justify-content: end;
+    justify-content: space-between;
 }
 
 #options>button {
@@ -84,6 +84,11 @@
 
 #options>button:active {
     background-color: #d683ffaa;
+}
+
+#options>button:disabled {
+    cursor: default;
+    background-color: #d683ff;
 }
 
 #result>h1 {
