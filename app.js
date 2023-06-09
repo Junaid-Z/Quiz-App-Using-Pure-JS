@@ -59,7 +59,7 @@ var questions = [
 
 let state = {
     currentQuestion: 0,
-    score: 0,
+    score: [],
     totalQuestions: questions.length,
     heading: 'Computer Quiz'
 }
@@ -103,7 +103,10 @@ class question {
             nextBtn.innerHTML = "Next Question"
             nextBtn.onclick = () => {
                 if (this.selectedAnswer === q.answer) {
-                    state.score += 10;
+                    state.score.push(10)
+                }
+                else {
+                    state.score.push(0)
                 }
                 console.log(state.currentQuestion)
                 state.currentQuestion += 1;
@@ -114,13 +117,28 @@ class question {
             nextBtn.innerHTML = "End Quiz"
             nextBtn.onclick = () => {
                 if (this.selectedAnswer === q.answer) {
-                    state.score += 10;
+                    state.score.push(10)
+                }
+                else {
+                    state.score.push(0)
                 }
                 console.log(state.currentQuestion)
                 state.currentQuestion += 1;
                 endQuiz()
             }
         }
+        let prevBtn = document.createElement('button') //Prev Button
+        prevBtn.innerHTML = "Prev Question"
+        prevBtn.onclick = () => {
+            state.score.pop()
+            console.log(state.currentQuestion)
+            state.currentQuestion -= 1;
+            nextQuestion()
+        }
+        if (state.currentQuestion === 0) {
+            prevBtn.disabled = true
+        }
+        nextBtnHolder.appendChild(prevBtn)
         nextBtnHolder.appendChild(nextBtn)
         addMultipleNodes(questionCard, [title, question, answers, nextBtnHolder])
         this.component = questionCard;
@@ -140,18 +158,19 @@ class endScreen {
         let result = document.createElement('div')
         result.id = "result"
         let score = document.createElement('h1')
-        if (state.score === (state.totalQuestions * 10)) {
-            score.innerHTML += `Reamarkable ✨ you received ${state.score}/${state.totalQuestions * 10}`
+        let scoreNumber = state.score.reduce((a, b) => a + b)
+        if (scoreNumber === (state.totalQuestions * 10)) {
+            score.innerHTML += `Reamarkable ✨ you received ${scoreNumber}/${state.totalQuestions * 10}`
         }
         else if (state.score / (state.totalQuestions * 10) >= 0.7) {
-            score.innerHTML += `Not bad you could have done better.<br/>You received ${state.score}/${state.totalQuestions * 10}`
+            score.innerHTML += `Not bad you could have done better.<br/>You received ${scoreNumber}/${state.totalQuestions * 10}`
         }
         else {
-            score.innerHTML += `Disappointing you failed.<br/>You received ${state.score}/${state.totalQuestions * 10}`
+            score.innerHTML += `Disappointing you failed.<br/>You received ${scoreNumber}/${state.totalQuestions * 10}`
         }
         let timeHolder = document.createElement('h1')
         console.log(time)
-        timeHolder.innerHTML += `You took ${time[0].innerHTML} hours ${time[1].innerHTML} minutes ${time[2].innerHTML} seconds`
+        timeHolder.innerHTML += `You took ${time[0].innerHTML} <sub>hours</sub> and ${time[1].innerHTML} <sub>minutes</sub> ${time[2].innerHTML} <sub>seconds</sub>`
         result.appendChild(score)
         addMultipleNodes(questionCard, [title, result, timeHolder])
         this.component = questionCard
@@ -182,55 +201,3 @@ function endQuiz() {
 }
 let timer = start()
 nextQuestion()
-
-// {
-//         numb: 1,
-//         question: "What does HTML stand for?",
-//         answer: "Hyper Text Markup Language",
-//         options: [
-//             "Hyper Text Preprocessor",
-//             "Hyper Text Markup Language",
-//             "Hyper Text Multiple Language",
-//             "Hyper Tool Multi Language",
-//         ],
-//     },
-
-
-// function createQuestion(q) {
-//     return `<div id="questionCard">
-//     <h1>Computer Quiz</h1>
-//     <div id="question">${q.question}</div>
-//     <div id="answers">
-//         <label>
-//             <input type="radio" name="answer" value=\`${q.options[0]}\`>
-//             \`${q.options[0]}\`
-//         </label>
-//         <label>
-//             <input type="radio" name="answer" value=\`${q.options[1]}\`>
-//             \`${q.options[1]}\`
-//         </label>
-//         <label>
-//             <input type="radio" name="answer">
-//             Calculator
-//         </label>
-//         <label>
-//             <input type="radio" name="answer">
-//             Processor
-//         </label>
-//     </div>
-//     <div id="options">
-//         <button type="submit" onclick='render()'>Next Question</button>
-//     </div>
-//     <!-- <div id="result">
-//         <h1>You received 10/50 marks</h1>
-//     </div> -->
-//     </div>`
-// }
-// let score = 0
-// let currentQuestion = -1
-// function render() {
-//     if (questions[currentQuestion].answer === document.querySelector('input[type="radio"]:checked').value)
-//         currentQuestion++
-//     var question = createQuestion(questions[currentQuestion])
-//     body.innerHTML = question
-// }
